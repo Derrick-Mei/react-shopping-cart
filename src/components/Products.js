@@ -6,6 +6,8 @@ import { ProductContext } from "../contexts/ProductContext";
 import Product from "./Product";
 
 const Products = props => {
+	// the value returned from value is an obj.
+	// Therefore, I can use object destructuring
     const { products, addItem } = React.useContext(ProductContext);
     return (
         <div className="products-container">
