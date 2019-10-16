@@ -17,12 +17,29 @@ function App() {
 
     const addItem = item => {
         // add the given item to the cart
-        setCart([...cart, item]);
+        const currentCart = cart;
+        const inCart = currentCart.filter(cartItem => cartItem.id === item.id);
+        if (inCart.length) {
+            const updatedCart = cart.map(cartItem => {
+                if (cartItem.id === item.id) {
+                    cartItem.quantity++;
+                    return cartItem;
+                }
+                return cartItem;
+            });
+            setCart(updatedCart);
+        } else {
+            setCart([...cart, item]);
+        }
+    };
+
+    const removeItem = id => {
+        setCart(cart.filter(item => item.id !== id));
     };
 
     return (
         <ProductContext.Provider value={{ products, addItem }}>
-            <CartContext.Provider value={cart}>
+            <CartContext.Provider value={{ cart, removeItem }}>
                 <div className="App">
                     <Navigation />
 
